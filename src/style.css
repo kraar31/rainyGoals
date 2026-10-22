@@ -1,0 +1,208 @@
+/* Rainy Goals — art from the hand-drawn asset sheet */
+:root{
+  --ink:#3a3532; --paper:#eee7dc; --paper2:#e4dccd; --muted:#8a7f74; --accent:#c4895f; --warm:#e8b562;
+  --hand:"Patrick Hand","Segoe Print","Bradley Hand","Comic Sans MS",cursive;
+  --frame:url(assets/ui/bubble.png);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:radial-gradient(ellipse at 50% 30%,#3a4452,#222833);color:var(--ink);font:1.12rem/1.35 var(--hand)}
+img{user-select:none;-webkit-user-drag:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- stage ---------- */
+#room,#house{position:absolute;left:50%;top:50%;width:max(100vw,calc(100vh * 1.7953));aspect-ratio:693/386;transform:translate(-50%,-50%);container-type:inline-size;overflow:hidden;transition:filter 4s}
+@media (max-aspect-ratio:1/1){#room,#house{width:100vw;left:0;top:20vh;transform:none}}
+.L{position:absolute;display:block;pointer-events:none}
+.base{inset:0;width:100%;height:100%}
+[data-add]{opacity:0;transition:opacity 1.4s ease}
+[data-add].on{opacity:1}
+[data-rem]{transition:opacity 1.4s ease}
+[data-rem].gone{opacity:0}
+#L-boxes{left:5.844%;top:53.238%;width:20.202%;height:36.269%}
+#L-dust{left:3.896%;top:67.098%;width:82.468%;height:32.902%}
+#L-lamp{left:53.03%;top:0.0%;width:10.39%;height:19.819%}
+#L-rug{left:21.14%;top:77.332%;width:68.975%;height:22.668%}
+#L-shelf{left:66.739%;top:12.306%;width:21.212%;height:62.176%}
+#L-tea{left:72.367%;top:67.746%;width:20.779%;height:24.611%}
+#L-web{left:0.0%;top:72.021%;width:8.947%;height:19.171%}
+#L-plant{left:58.874%;top:60.104%;width:6.999%;height:17.617%}
+
+/* window: rain, grime, sunshine — all clipped to the glass */
+.win{position:absolute;inset:0;clip-path:polygon(14.43% 8.03%,28% 8.03%,16.74% 32.12%,10.82% 33.16%,8.66% 30.05%,5.05% 27.2%);pointer-events:none}
+.rain{position:absolute;inset:0;background:url(assets/ui/rain_tile.png) repeat;opacity:.8;animation:fall 1.1s linear infinite}
+.rain.r1{background-size:5.2cqw auto;--tile:4.9cqw}
+.rain.r2{background-size:3.4cqw auto;--tile:3.2cqw;opacity:.55;animation-duration:.75s;background-position-x:1.3cqw}
+@keyframes fall{to{background-position-y:var(--tile)}}
+.grime{position:absolute;inset:0;background:url(assets/ui/grime.png) 0 0/9cqw auto,linear-gradient(#5d675f88,#6e6a5c99);opacity:.9}
+.sunlight{position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 60% 18%,#fff3c4 0,#f7d98a 28%,#a9c3d8 70%);transition:opacity 4s}
+.sunny .sunlight{opacity:.85}
+.sunny .rain{display:none}
+
+/* light: the room is dim until the lamp is lit */
+.dim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(14,20,32,.42),rgba(14,20,32,.3));transition:opacity 2.5s}
+.glow{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;transition:opacity 2.5s;
+  background:radial-gradient(ellipse 30% 42% at 58.3% 20%,rgba(255,200,110,.5),rgba(255,190,100,.14) 60%,transparent 100%)}
+.lit .dim{opacity:.4}
+.lit .glow{opacity:1}
+.sunny .dim{opacity:0}
+.sunny #room,.sunny #house{filter:brightness(1.12) saturate(1.12) sepia(.12)}
+
+/* ---------- friend ---------- */
+#friend{position:absolute;left:50.5%;bottom:14%;transform:translateX(-50%);padding:0;border:0;background:none;cursor:pointer;transform-origin:50% 100%;animation:breathe 4s ease-in-out infinite}
+#friend img{display:block;width:calc(var(--w,141) * .066cqw);height:auto;pointer-events:none}
+#friend:hover{animation:curious 1.2s ease-in-out infinite}
+#friend:active{animation:bounce .42s ease-out}
+#friend:focus-visible{outline:2px dashed var(--warm);outline-offset:6px;border-radius:10px}
+@keyframes breathe{0%,100%{transform:translateX(-50%) scale(1,1)}48%{transform:translateX(-50%) scale(1.01,1.02)}72%{transform:translateX(-50%) scale(1.004,.996)}}
+@keyframes curious{0%,100%{transform:translateX(-50%) rotate(0)}40%{transform:translateX(-50%) translateY(-2px) rotate(-1.6deg)}70%{transform:translateX(-50%) rotate(1deg)}}
+@keyframes bounce{0%{transform:translateX(-50%) scale(1,1)}45%{transform:translateX(-50%) scale(1.06,.92)}75%{transform:translateX(-50%) scale(.97,1.04)}100%{transform:translateX(-50%) scale(1,1)}}
+
+/* ---------- paper frames (the sheet's hand-drawn speech bubble) ---------- */
+.chip,#bubble,#drawer,.dock button,#postcard,#close,#gear{border:20px solid transparent;border-image:var(--frame) 66 fill/20px/0 stretch;background:none}
+.hud{position:fixed;top:max(10px,env(safe-area-inset-top));left:12px;display:flex;gap:2px;z-index:5}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:0 6px;font-size:1.15rem;border-width:12px;border-image-width:12px;line-height:1}
+.chip b{font-weight:400;font-size:1.25rem}
+.ico{height:1.1em;width:auto;display:inline-block}
+.chip .lbl{color:var(--muted)}
+
+#bubble{position:fixed;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;width:max-content;max-width:min(580px,calc(100vw - 120px));padding:0 14px 6px;z-index:4}
+#bubble p{margin:0;font-size:1.25rem;position:relative;padding-bottom:6px}
+#bubble p::after{content:"";position:absolute;left:50%;bottom:-8px;width:14px;height:14px;background:url(assets/ui/pointer.png) center/contain no-repeat;transform:rotate(90deg);animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:rotate(90deg) translateX(3px)}}
+#portrait{height:58px;width:auto;flex:none;margin-top:-18px;filter:drop-shadow(0 2px 2px #0005)}
+
+.dock{position:fixed;right:max(10px,env(safe-area-inset-right));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;z-index:6}
+.dock button{position:relative;width:62px;height:58px;padding:0;border-width:12px;border-image-width:12px;cursor:pointer;display:grid;place-items:center;transition:transform .18s ease}
+.dock button img{max-width:30px;max-height:28px;pointer-events:none;object-fit:contain}
+.dock button img.photo{width:30px;height:28px;object-fit:cover;border-radius:4px}
+.dock button:hover{transform:translateX(-4px) rotate(-2deg)}
+.dock button[aria-pressed="true"]{transform:translateX(-8px);filter:sepia(.5) saturate(1.5) brightness(.97)}
+.badge{position:absolute;top:-6px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:50% 50% 50% 8px;background:#c77e68;color:#fff8ed;font:400 .9rem/20px var(--hand);text-align:center;font-style:normal;border:1.5px solid var(--ink)}
+.badge:empty{display:none}
+
+#drawer{position:fixed;right:86px;top:10px;bottom:10px;width:min(380px,calc(100vw - 100px));padding:0 6px;overflow:auto;z-index:5;border-width:24px;border-image-width:24px;color:var(--ink)}
+#drawer[hidden],#drawer [hidden],#postcard[hidden]{display:none}
+.dhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+h2{font:400 1.6rem var(--hand);margin:0}
+h3{margin:18px 0 6px;font:400 1.2rem var(--hand);color:var(--muted)}
+#close{width:34px;height:30px;padding:0;border-width:10px;border-image-width:10px;cursor:pointer;display:grid;place-items:center}
+#close img{height:14px}
+form{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-top:10px}
+form label{grid-column:1/-1;color:var(--muted)}
+input,select{font:inherit;color:var(--ink);background:#f8f3ea;border:2px solid var(--ink);border-radius:10px 6px 11px 7px;padding:6px 10px;min-width:0}
+form button,li>button:not(.check):not(.del){font:inherit;color:var(--ink);background:var(--paper2);border:2px solid var(--ink);border-radius:8px 12px 7px 11px;padding:4px 12px;cursor:pointer;box-shadow:0 2px 0 var(--ink)}
+form button:hover:not(:disabled),li>button:hover:not(:disabled){background:#f3dfc0}
+button:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:2px dashed var(--accent);outline-offset:2px}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:2px dotted #cbbfae}
+li .t{flex:1}
+li.done .t{text-decoration:line-through;color:var(--muted)}
+.check{width:28px;height:28px;padding:0;border-radius:44% 56% 48% 52%;line-height:1;border:2px solid var(--ink);background:#f8f3ea;color:var(--ink);font:inherit;cursor:pointer;flex:none}
+li.done .check{background:#e0b887}
+.streak{color:#a96d4e;font-size:.95rem}
+.del{border:0;background:none;color:var(--muted);padding:4px 8px;font:inherit;cursor:pointer}
+.empty{color:var(--muted)}
+.thumb{width:54px;height:36px;object-fit:cover;border:2px solid var(--ink);border-radius:4px 7px 5px 8px;flex:none;background:#cfc8bb}
+.thumb.contain{object-fit:contain;padding:2px}
+li.owned .thumb{filter:grayscale(.6) opacity(.6)}
+#shop li.owned .t{color:var(--muted)}
+#shop .cost,#outings .cost{color:#a96d4e;min-width:2.5ch;text-align:right}
+.lock{display:inline-flex;align-items:center;gap:3px;color:var(--muted);font-size:.95rem}
+.lock img{height:1em}
+.finds{display:flex;flex-wrap:wrap;gap:8px}
+.find{width:50px;height:50px;border:2px solid var(--ink);border-radius:6px 10px 7px 9px;background:#f8f3ea;display:grid;place-items:center}
+.find img{max-width:40px;max-height:40px;object-fit:contain}
+.find.photo img{width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;border-radius:4px}
+
+/* ---------- outing postcard ---------- */
+#postcard{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(640px,92vw);margin:0;padding:0 8px 4px;z-index:9;border-width:26px;border-image-width:26px;animation:pop .5s ease-out;text-align:center;cursor:pointer}
+#pcArt{display:flex;gap:6px;justify-content:center}
+#pcArt img{max-width:100%;max-height:38vh;border:2px solid var(--ink);border-radius:5px}
+#pcArt.trio img{width:32%;object-fit:cover}
+#pcCap{font-size:1.3rem;margin-top:8px}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-46%) rotate(-1.5deg)}}
+
+
+/* ---------- two floors ---------- */
+body[data-floor="down"] #room{display:none}
+body:not([data-floor="down"]) #house{display:none}
+#house .L{inset:0;width:100%;height:100%}
+#L-hatch{inset:0;width:100%;height:100%}
+#house #friend{left:45%;bottom:8%}
+
+/* the glass of the kitchen window (rain, grime, sun) */
+.win.dwin{clip-path:polygon(67.25% 18.26%,76.26% 18.26%,76.26% 41.32%,67.25% 41.32%)}
+
+/* the ground floor is dim until something warm is lit */
+.ddim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(14,20,32,.5),rgba(14,20,32,.42));transition:opacity 2.5s}
+body.k-kitchen .ddim{opacity:.82}
+body.k-fire .ddim{opacity:.7}
+body.k-kitchen.k-fire .ddim{opacity:.52}
+.sunny .ddim{opacity:0}
+.dglow{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;transition:opacity 2.5s}
+.g-fire{background:radial-gradient(ellipse 24% 40% at 54.8% 64%,rgba(255,170,80,.6),rgba(255,150,70,.16) 60%,transparent 100%);animation:flick 3.2s ease-in-out infinite}
+.g-kit{background:radial-gradient(ellipse 14% 26% at 74.6% 27%,rgba(255,205,120,.5),rgba(255,190,100,.12) 60%,transparent 100%)}
+.g-door{background:radial-gradient(ellipse 12% 40% at 91.3% 56%,rgba(205,225,240,.42),rgba(205,225,240,.1) 60%,transparent 100%)}
+body.k-fire .g-fire,body.k-kitchen .g-kit,body.k-door .g-door{opacity:1}
+@keyframes flick{0%,100%{opacity:1}30%{opacity:.82}55%{opacity:.95}80%{opacity:.78}}
+
+/* places you can tap to change floor */
+.spot{position:absolute;z-index:3;padding:0;border:0;background:none;cursor:pointer;border-radius:14px;transition:background .25s}
+.spot[hidden]{display:none}
+.spot:hover,.spot:focus-visible{background:rgba(232,181,98,.14);outline:2px dashed var(--warm);outline-offset:-3px}
+#hatch{left:5%;top:75%;width:22%;height:24%}
+#stairsUp{left:1.2%;top:10%;width:25%;height:60%}
+
+#floorBtn{position:relative;font:inherit;color:var(--ink);cursor:pointer;margin-left:6px;white-space:nowrap}
+#floorBtn .arrow{height:.95em;transform:rotate(90deg);transition:transform .3s}
+body[data-floor="down"] #floorBtn .arrow{transform:rotate(-90deg)}
+#floorBtn:hover{filter:sepia(.35) saturate(1.3)}
+#floorBtn[hidden]{display:none}
+#floorBtn .badge{top:-8px;right:-6px}
+
+#fade{position:fixed;inset:0;z-index:20;background:#141922;opacity:0;pointer-events:none;transition:opacity .38s ease}
+#fade.on{opacity:1;pointer-events:auto}
+
+/* settings: gear in the bottom-right corner */
+#gear{position:fixed;right:max(10px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));width:62px;height:58px;padding:0;border-width:12px;border-image-width:12px;cursor:pointer;display:grid;place-items:center;z-index:6;transition:transform .18s ease}
+#gear img{max-width:30px;max-height:28px;pointer-events:none;object-fit:contain;transition:transform .5s ease}
+#gear:hover img{transform:rotate(60deg)}
+#gear[aria-pressed="true"]{filter:sepia(.5) saturate(1.5) brightness(.97)}
+#settings p{margin:6px 0 10px}
+#settings .row{display:flex;gap:8px;flex-wrap:wrap}
+#settings button{font:inherit;color:var(--ink);background:var(--paper2);border:2px solid var(--ink);border-radius:8px 12px 7px 11px;padding:4px 14px;cursor:pointer;box-shadow:0 2px 0 var(--ink)}
+#settings button:hover{background:#f3dfc0}
+#settings button.danger{background:#e9b9a6}
+#settings button.danger:hover{background:#e3a58d}
+#settings .warn{color:#9a4a37}
+
+/* story bubble: tap to keep reading */
+#bubble.more{cursor:pointer}
+#bubble.more p::after{animation-duration:.9s}
+
+/* shop / journal */
+li.sec{display:block;border:0;padding:14px 0 2px;color:var(--muted);font-size:1.25rem}
+li.sec:first-child{padding-top:2px}
+#journal .entry{padding:8px 0;border-bottom:2px dotted #cbbfae}
+#journal .entry b{font-weight:400;font-size:1.2rem;display:block}
+#journal .entry small{color:var(--muted);font-size:.95rem}
+#journal .entry p{margin:2px 0 0}
+#journal .entry.locked{color:var(--muted)}
+@media (max-height:640px) and (min-width:621px){.dock{gap:3px}.dock button{height:48px}}
+
+@media (max-width:620px){
+  .hud{left:6px}
+  #gear{bottom:auto;top:max(8px,env(safe-area-inset-top));right:6px;width:50px;height:46px;border-width:10px;border-image-width:10px}
+  #gear img{max-width:24px;max-height:22px}
+  .dock{top:auto;bottom:max(8px,env(safe-area-inset-bottom));left:50%;right:auto;transform:translateX(-50%);flex-direction:row;gap:0;width:min(98vw,470px);justify-content:center}
+  .dock button{width:52px;height:50px;border-width:10px;border-image-width:10px}
+  .dock button img{max-width:24px;max-height:24px}.dock button img.photo{width:24px;height:24px}
+  .dock button[aria-pressed="true"]{transform:translateY(-6px)}
+  #bubble{bottom:calc(max(8px,env(safe-area-inset-bottom)) + 68px);max-width:calc(100vw - 20px)}
+  #bubble p{font-size:1.1rem}
+  #drawer{left:8px;right:8px;top:54px;bottom:calc(max(8px,env(safe-area-inset-bottom)) + 140px);width:auto}
+  form{grid-template-columns:1fr 1fr}form input{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){#friend,#friend:hover,#friend:active{animation:none}.rain{animation:none}[data-add],[data-rem],.dim,.glow,.ddim,.dglow,#room,#house,#fade{transition:none}.dglow,.spot::after{animation:none}#bubble p::after{animation:none}#postcard{animation:none}}

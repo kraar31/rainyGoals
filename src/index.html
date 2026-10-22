@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A gentle, rainy attic companion for goals, habits, and small steps.">
+<meta name="theme-color" content="#2b3340">
+<title>Rainy Goals — The Attic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-floor="attic">
+<main id="room" role="img" aria-label="A rainy attic with a small white friend sitting on the floor">
+  <img class="L base" src="assets/room/base.webp" alt="" draggable="false">
+
+  <div class="win" aria-hidden="true">
+    <div class="sunlight"></div>
+    <div class="rain r1"></div><div class="rain r2"></div>
+    <div class="grime" data-rem="grime"></div>
+  </div>
+
+  <img class="L" data-rem="web"   id="L-web"   src="assets/room/web.webp"   alt="" draggable="false">
+  <img class="L" data-rem="dust"  id="L-dust"  src="assets/room/dust.webp"  alt="" draggable="false">
+  <img class="L" data-add="rug"   id="L-rug"   src="assets/room/rug.webp"   alt="" draggable="false">
+  <img class="L" data-add="shelf" id="L-shelf" src="assets/room/shelf.webp" alt="" draggable="false">
+  <img class="L" data-add="plant" id="L-plant" src="assets/room/plant.webp" alt="" draggable="false">
+  <img class="L" data-add="tea"   id="L-tea"   src="assets/room/tea.webp"   alt="" draggable="false">
+  <img class="L" data-add="stairs" id="L-hatch" src="assets/room/hatch.svg" alt="" draggable="false">
+  <img class="L" data-rem="boxes" id="L-boxes" src="assets/room/boxes.webp" alt="" draggable="false">
+
+  <button class="spot" id="hatch" aria-label="Go downstairs" title="Go downstairs" hidden></button>
+  <button id="friend" aria-label="Talk to your friend"><img id="friendImg" src="assets/sprites/idle_breath.png" alt="" draggable="false"></button>
+
+  <div class="dim"></div>
+  <img class="L" data-add="lamp" id="L-lamp" src="assets/room/lamp.webp" alt="" draggable="false">
+  <div class="glow"></div>
+</main>
+
+<main id="house" role="img" aria-label="The ground floor of the house, below the attic">
+  <img class="L" src="assets/house/base.svg" alt="" draggable="false">
+
+  <div class="win dwin" aria-hidden="true">
+    <div class="sunlight"></div>
+    <div class="rain r1"></div><div class="rain r2"></div>
+    <div class="grime" data-rem="kitchen"></div>
+  </div>
+  <img class="L" src="assets/house/wf.svg" alt="" draggable="false">
+
+  <img class="L" data-rem="sheets"  src="assets/house/sheets.svg"    alt="" draggable="false">
+  <img class="L" data-add="sheets"  src="assets/house/furn.svg"      alt="" draggable="false">
+  <img class="L" data-add="throw"   src="assets/house/throw.svg"     alt="" draggable="false">
+  <img class="L" data-add="kitchen" src="assets/house/kitchen.svg"   alt="" draggable="false">
+  <img class="L" data-add="purifier" src="assets/house/purifier.svg" alt="" draggable="false">
+  <img class="L" data-add="fern"    src="assets/house/fern.svg"      alt="" draggable="false">
+  <img class="L" data-add="clock"   src="assets/house/clock.svg"     alt="" draggable="false">
+  <img class="L" data-add="photos"  src="assets/house/photos.svg"    alt="" draggable="false">
+  <img class="L" data-add="door"    src="assets/house/door.svg"      alt="" draggable="false">
+  <img class="L" data-add="umbrella" src="assets/house/umbrella.svg" alt="" draggable="false">
+  <img class="L" data-add="fireplace" src="assets/house/fire.svg"    alt="" draggable="false">
+
+  <button class="spot" id="stairsUp" aria-label="Go back up to the attic" title="Go back up to the attic"></button>
+
+  <div class="ddim"></div>
+  <div class="dglow g-fire"></div><div class="dglow g-kit"></div><div class="dglow g-door"></div>
+</main>
+
+<div class="hud">
+  <span class="chip"><span class="lbl">Affinity</span> <b id="lvl">1</b></span>
+  <span class="chip" aria-live="polite"><img src="assets/ui/heart.png" alt="" class="ico"><b id="pts">0</b><span class="sr"> hearts</span></span>
+  <button class="chip" id="floorBtn" hidden aria-label="Go downstairs"><img class="ico arrow" src="assets/ui/pointer.png" alt=""><span id="floorLbl">Downstairs</span><i class="badge"></i></button>
+</div>
+
+<div id="bubble" role="status">
+  <img id="portrait" src="assets/sprites/expr_neutral.png" alt="">
+  <p id="bubbleText">...</p>
+</div>
+
+<nav class="dock" aria-label="Menu">
+  <button data-panel="add"    title="New goal"             aria-label="New goal"             aria-pressed="false"><img src="assets/art/note.png"  alt=""><i class="badge"></i></button>
+  <button data-panel="daily"  title="Daily goals"          aria-label="Daily goals"          aria-pressed="false"><img src="assets/art/mug.png"   alt=""><i class="badge"></i></button>
+  <button data-panel="weekly" title="Weekly goals"         aria-label="Weekly goals"         aria-pressed="false"><img src="assets/art/letter.png" alt=""><i class="badge"></i></button>
+  <button data-panel="habit"  title="Habits"               aria-label="Habits"               aria-pressed="false"><img src="assets/art/candle.png" alt=""><i class="badge"></i></button>
+  <button data-panel="todo"   title="To-dos"               aria-label="To-dos"               aria-pressed="false"><img src="assets/art/books.png"  alt=""><i class="badge"></i></button>
+  <button data-panel="shop"   title="Make the room better" aria-label="Make the room better" aria-pressed="false"><img src="assets/art/boxes.png"  alt=""><i class="badge"></i></button>
+  <button data-panel="journal" title="Journal" aria-label="Journal" aria-pressed="false"><img src="assets/art/books_stack.png" alt=""><i class="badge"></i></button>
+  <button data-panel="out"    title="Outside"              aria-label="Outside"              aria-pressed="false"><img src="assets/art/out_tree.webp" alt="" class="photo"><i class="badge"></i></button>
+</nav>
+
+<button id="gear" title="Settings" aria-label="Settings" aria-pressed="false"><img src="assets/ui/gear.png" alt=""></button>
+
+<aside id="drawer" hidden>
+  <div class="dhead"><h2 id="dtitle"></h2><button id="close" aria-label="Close"><img src="assets/ui/menu.png" alt="" class="ico"></button></div>
+  <section data-p="add" hidden>
+    <form id="add">
+      <label for="text">What do you want to do?</label>
+      <input id="text" required maxlength="80" autocomplete="off" placeholder="Go for a walk">
+      <select id="type" aria-label="Type">
+        <option value="daily">Daily goal</option><option value="weekly">Weekly goal</option>
+        <option value="habit">Habit</option><option value="todo">To-do</option>
+      </select>
+      <button>Add</button>
+    </form>
+  </section>
+  <section data-p="daily" hidden><div id="list-daily"></div></section><section data-p="weekly" hidden><div id="list-weekly"></div></section><section data-p="habit" hidden><div id="list-habit"></div></section><section data-p="todo" hidden><div id="list-todo"></div></section>
+  <section data-p="shop" hidden><ul id="shop"></ul></section>
+  <section data-p="settings" hidden><div id="settings"></div></section>
+  <section data-p="journal" hidden><div id="journal"></div></section>
+  <section data-p="out" hidden><ul id="outings"></ul><h3>Memory box</h3><div id="memories" class="empty"></div></section>
+</aside>
+
+<div id="fade" aria-hidden="true"></div>
+
+<figure id="postcard" hidden>
+  <div id="pcArt"></div>
+  <figcaption id="pcCap"></figcaption>
+</figure>
+<script src="app.js"></script>
+</body>
+</html>
